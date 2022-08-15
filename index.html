@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados</title>
+</head>
+
+<body>
+
+    <div id="dice-area">
+
+        <div id="dice">
+            <p id="word"></p>
+        </div>
+        <div id="dice2">
+            <p id="word2"></p>
+        </div>
+        <div id="dice3">
+            <p id="word3"></p>
+        </div>
+        <div id="dice4">
+            <p id="word4"></p>
+        </div>
+       
+    </div>
+
+    <div id="soma">
+        
+        <p id="numero-soma"></p>
+    </div>
+
+    <button id="roll" onclick="roll()">Roll!</button>
+    
+    <select name="selecao" id="select">
+        
+        <option value="1">🎲 x 1</option>
+        <option value="2">🎲 x 2</option>
+        <option value="3">🎲 x 3</option>
+        <option value="4">🎲 x 4</option>  
+    </select>
+
+</body>
+
+<style>
+    body {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #dice-area {
+        position: relative;
+        display: flex;
+        border-bottom: solid 2px  rgb(68, 68, 68);
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        height: 50%;
+    }
+    #dice {
+        position: relative;
+        margin: 0 10px 0 10px;
+        display: flex;
+        top: 100px;
+        border: solid 2px;
+        border-radius: 8px;
+        width: 56px;
+        height: 56px;
+        transition: all 0.7s ease-in-out;   
+        
+    }
+    #dice2 {
+        position: relative;
+        margin: 0 10px 0 10px;
+        display: none;
+        top: 100px;
+        border: solid 2px;
+        border-radius: 8px;
+        width: 56px;
+        height: 56px;
+        transition: all 0.7s ease-in-out;   
+        
+    }
+    #dice3 {
+        position: relative;
+        margin: 0 10px 0 10px;
+        display: none;
+        top: 100px;
+        border: solid 2px;
+        border-radius: 8px;
+        width: 56px;
+        height: 56px;
+        transition: all 0.7s ease-in-out;   
+        
+    }
+    #dice4 {
+        position: relative;
+        margin: 0 10px 0 10px;
+        display: none;
+        top: 100px;
+        border: solid 2px;
+        border-radius: 8px;
+        width: 56px;
+        height: 56px;
+        transition: all 0.7s ease-in-out;   
+        
+    }
+    #word {
+        display: flex;
+        position: relative;
+        width: 56px;
+        height: 56px;
+        font-size: 3em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -50px;
+        transition: all 0.5s ease-out; 
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #word2 {
+        display: flex;
+        position: relative;
+        width: 56px;
+        height: 56px;
+        font-size: 3em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -50px;
+        transition: all 0.5s ease-out; 
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #word3 {
+        display: flex;
+        position: relative;
+        width: 56px;
+        height: 56px;
+        font-size: 3em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -50px;
+        transition: all 0.5s ease-out; 
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #word4 {
+        display: flex;
+        position: relative;
+        width: 56px;
+        height: 56px;
+        font-size: 3em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -50px;
+        transition: all 0.5s ease-out; 
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #roll {
+        width: 10em;
+        height: 3em;
+        font-size: 1.2em;
+        font-family: Arial, Helvetica, sans-serif;
+        border-radius: 8px;
+        background-color: rgb(235, 235, 235);
+
+    }
+    #select {
+        position: relative;
+        left: 224px;
+        top: -150px;
+        width: 5em;
+        height: 2em;
+        font-size: 1.2em;
+        font-family: Arial, Helvetica, sans-serif;
+        border: solid 2px black;
+        border-radius: 8px;
+        background-color: rgb(235, 235, 235);
+        
+    }
+    #soma {
+        display: flex;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        font-size: 3em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -300px;
+        transition: all 0.7s ease-out; 
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #numero-soma {
+        display: flex;
+        position: relative;
+        font-size: 2.5em;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        top: -50px;
+        transition: all 0.5s ease; 
+        color: rgba(0, 0, 0, 0);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    @media screen and (max-width: 600px) {
+
+        #dice-area {
+            position: relative;
+            display: flex;
+            border-bottom: solid 2px  rgb(68, 68, 68);
+            justify-content: center;
+            align-items: center;
+            width: 75%;
+            height: 50%;
+            
+        }
+
+        #select {
+            position: relative;
+            left: 111px;
+            top: -140px;
+            width: 5em;
+            height: 2em;
+            font-size: 1.2em;
+            font-family: Arial, Helvetica, sans-serif;
+            border: solid 2px black;
+            border-radius: 8px;
+            background-color: rgb(235, 235, 235);
+        
+        }
+
+        #numero-soma {
+            display: flex;
+            position: relative;
+            font-size: 2.5em;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            top: -10px;
+            transition: all 0.5s ease; 
+            color: rgba(0, 0, 0, 0);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+  
+    }
+   
+</style>
+
+<script>
+    
+    var number1; // variavel que armazena o numero do dado 1.
+    var number2; // variavel que armazena o numero do dado 2.
+    var number3; // variavel que armazena o numero do dado 3.
+    var number4; // variavel que armazena o numero do dado 4.
+    var result;  // variavel que armazena a soma dos dados.
+    var dice_fall_timer = 650; // tempo em ms (milisegundos).
+    var sort_number = 700; // tempo em ms (milisegundos).
+    var number_creation = 1200 // tempo em ms (milisegundos).
+    var dice_roll = false; 
+    var dice_qtd = document.getElementById("select").value; // armazena o valor da tag select.
+
+    select.addEventListener('change', function handleChange(event) {
+        console.log(select.selectedIndex);
+        dice_qtd = document.getElementById("select").value;
+        document.getElementById("dice").style.backgroundImage = "none";
+        document.getElementById("dice2").style.backgroundImage = "none";
+        document.getElementById("dice3").style.backgroundImage = "none";
+        document.getElementById("dice4").style.backgroundImage = "none";
+        document.getElementById("word").style.color = "rgba(0, 0, 0, 0)";
+        document.getElementById("word2").style.color = "rgba(0, 0, 0, 0)";
+        document.getElementById("word3").style.color = "rgba(0, 0, 0, 0)";
+        document.getElementById("word4").style.color = "rgba(0, 0, 0, 0)";
+
+        if (dice_qtd == 1) {
+         document.getElementById("dice").style.display = "flex";
+         document.getElementById("dice2").style.display = "none";
+         document.getElementById("dice3").style.display = "none";
+         document.getElementById("dice4").style.display = "none";
+         
+         // numero
+         document.getElementById("word").style.display = "flex";
+         document.getElementById("word2").style.display = "none"; 
+         document.getElementById("word3").style.display = "none";   
+         document.getElementById("word4").style.display = "none"; 
+         document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 0)";
+
+        } 
+
+        else if (dice_qtd == 2){
+        document.getElementById("dice").style.display = "flex";
+        document.getElementById("dice2").style.display = "flex";
+        document.getElementById("dice3").style.display = "none";
+        document.getElementById("dice4").style.display = "none";  
+        // numero
+        document.getElementById("word").style.display = "flex";
+        document.getElementById("word2").style.display = "flex"; 
+        document.getElementById("word3").style.display = "none";   
+        document.getElementById("word4").style.display = "none"; 
+        document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 0)"; 
+        } 
+
+        else if (dice_qtd == 3){
+        document.getElementById("dice").style.display = "flex";
+        document.getElementById("dice2").style.display = "flex";
+        document.getElementById("dice3").style.display = "flex";
+        document.getElementById("dice4").style.display = "none"; 
+        // numero
+        document.getElementById("word").style.display = "flex";
+        document.getElementById("word2").style.display = "flex"; 
+        document.getElementById("word3").style.display = "flex";   
+        document.getElementById("word4").style.display = "none";  
+        document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 0)"; 
+        } 
+
+        else if (dice_qtd == 4){
+        document.getElementById("dice").style.display = "flex";
+        document.getElementById("dice2").style.display = "flex";
+        document.getElementById("dice3").style.display = "flex";
+        document.getElementById("dice4").style.display = "flex";  
+        // numero
+        document.getElementById("word").style.display = "flex";
+        document.getElementById("word2").style.display = "flex"; 
+        document.getElementById("word3").style.display = "flex";   
+        document.getElementById("word4").style.display = "flex";  
+        document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 0)";
+        }
+    
+    });
+
+    function roll(){
+        document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 0)";
+        document.getElementById("roll").disabled = true;
+
+        if (dice_qtd == 1) {
+            dice_roll = true;
+            number = Math.floor(Math.random() * (1 + 5));
+            document.getElementById("word").style.transform = "translateY(0px)";
+            document.getElementById("word").innerHTML = "";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("dice").style.transform = "translateY(-210px) rotate(1turn)";
+            window.setTimeout(function() { //função que faz o dado descer após 650 ms
+            document.getElementById("dice").style.transform = "translateY(0px) rotate(2turn)";
+            },dice_fall_timer);
+            window.setTimeout(function() {
+            sortearNumero();
+            },sort_number);
+            window.setTimeout(function() {
+            document.getElementById("word").innerHTML = number;
+            document.getElementById("word").style.transform = "translateY(-65px)";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("roll").innerHTML = "Roll Again!"
+            document.getElementById("roll").disabled = false;
+            soma();
+            },number_creation); 
+        }
+        
+        if (dice_qtd == 2) {
+            dice_roll = true;
+            number = Math.floor(Math.random() * (1 + 5));
+            number2 = Math.floor(Math.random() * (1 + 5));
+            document.getElementById("word").style.transform = "translateY(0px)";
+            document.getElementById("word2").style.transform = "translateY(0px)";
+            document.getElementById("word").innerHTML = "";
+            document.getElementById("word2").innerHTML = "";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("dice").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice2").style.transform = "translateY(-210px) rotate(1turn)";
+            window.setTimeout(function() { //função que faz o dado descer após 650 ms
+            document.getElementById("dice").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice2").style.transform = "translateY(0px) rotate(2turn)";
+            },dice_fall_timer);
+            window.setTimeout(function() {
+            sortearNumero();
+            },sort_number);
+            window.setTimeout(function() {
+            document.getElementById("word").innerHTML = number;
+            document.getElementById("word2").innerHTML = number2;
+            document.getElementById("word").style.transform = "translateY(-65px)";
+            document.getElementById("word2").style.transform = "translateY(-65px)";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("roll").innerHTML = "Roll Again!"
+            document.getElementById("roll").disabled = false;
+            soma();
+            },number_creation); 
+        }
+
+        if (dice_qtd == 3) {
+            dice_roll = true;
+            number = Math.floor(Math.random() * (1 + 5));
+            number2 = Math.floor(Math.random() * (1 + 5));
+            number3 = Math.floor(Math.random() * (1 + 5));
+            document.getElementById("word").style.transform = "translateY(0px)";
+            document.getElementById("word2").style.transform = "translateY(0px)";
+            document.getElementById("word3").style.transform = "translateY(0px)";
+            document.getElementById("word").innerHTML = "";
+            document.getElementById("word2").innerHTML = "";
+            document.getElementById("word3").innerHTML = "";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word3").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("dice").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice2").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice3").style.transform = "translateY(-210px) rotate(1turn)";
+            window.setTimeout(function() { //função que faz o dado descer após 650 ms
+            document.getElementById("dice").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice2").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice3").style.transform = "translateY(0px) rotate(2turn)";
+            },dice_fall_timer);
+            window.setTimeout(function() {
+            sortearNumero();
+            },sort_number);
+            window.setTimeout(function() {
+            document.getElementById("word").innerHTML = number;
+            document.getElementById("word2").innerHTML = number2;
+            document.getElementById("word3").innerHTML = number3;
+            document.getElementById("word").style.transform = "translateY(-65px)";
+            document.getElementById("word2").style.transform = "translateY(-65px)";
+            document.getElementById("word3").style.transform = "translateY(-65px)";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word3").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("roll").innerHTML = "Roll Again!"
+            document.getElementById("roll").disabled = false;
+            soma();
+            },number_creation); 
+        }
+
+        if (dice_qtd == 4) {
+            dice_roll = true;
+            number = Math.floor(Math.random() * (1 + 5));
+            number2 = Math.floor(Math.random() * (1 + 5));
+            number3 = Math.floor(Math.random() * (1 + 5));
+            number4 = Math.floor(Math.random() * (1 + 5));
+            document.getElementById("word").style.transform = "translateY(0px)";
+            document.getElementById("word2").style.transform = "translateY(0px)";
+            document.getElementById("word3").style.transform = "translateY(0px)";
+            document.getElementById("word4").style.transform = "translateY(0px)";
+            document.getElementById("word").innerHTML = "";
+            document.getElementById("word2").innerHTML = "";
+            document.getElementById("word3").innerHTML = "";
+            document.getElementById("word4").innerHTML = "";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word3").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("word4").style.color= "rgba(0, 0, 0, 0)";
+            document.getElementById("dice").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice2").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice3").style.transform = "translateY(-210px) rotate(1turn)";
+            document.getElementById("dice4").style.transform = "translateY(-210px) rotate(1turn)";
+            window.setTimeout(function() { //função que faz o dado descer após 650 ms
+            document.getElementById("dice").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice2").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice3").style.transform = "translateY(0px) rotate(2turn)";
+            document.getElementById("dice4").style.transform = "translateY(0px) rotate(2turn)";
+            },dice_fall_timer);
+            window.setTimeout(function() {
+            sortearNumero();
+            },sort_number);
+            window.setTimeout(function() {
+            document.getElementById("word").innerHTML = number;
+            document.getElementById("word2").innerHTML = number2;
+            document.getElementById("word3").innerHTML = number3;
+            document.getElementById("word4").innerHTML = number4;
+            document.getElementById("word").style.transform = "translateY(-65px)";
+            document.getElementById("word2").style.transform = "translateY(-65px)";
+            document.getElementById("word3").style.transform = "translateY(-65px)";
+            document.getElementById("word4").style.transform = "translateY(-65px)";
+            document.getElementById("word").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word2").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word3").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("word4").style.color= "rgba(0, 0, 0, 1)";
+            document.getElementById("roll").innerHTML = "Roll Again!"
+            document.getElementById("roll").disabled = false;
+            soma();
+            },number_creation); 
+
+            
+        }   
+    }
+    
+    function sortearNumero() {
+        // NUMBER 
+        if (number == 0) {
+        document.getElementById("dice").style.backgroundImage = "url(res/6.png)";
+        number = 6;
+        }
+        else if (number == 1) {
+        document.getElementById("dice").style.backgroundImage = "url(res/1.png)";
+        }
+        else if (number == 2) {
+        document.getElementById("dice").style.backgroundImage = "url(res/2.png)";
+        }
+        else if (number == 3) {
+        document.getElementById("dice").style.backgroundImage = "url(res/3.png)";
+        }
+        else if (number == 4) {
+        document.getElementById("dice").style.backgroundImage = "url(res/4.png)";
+        }
+        else if (number == 5) {
+        document.getElementById("dice").style.backgroundImage = "url(res/5.png)";
+        }
+        else if (number == 6) {
+        document.getElementById("dice").style.backgroundImage = "url(res/6.png)";
+        }
+        // NUMBER 2
+        if (number2 == 0) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/6.png)";
+        number2 = 6;
+        }
+        else if (number2 == 1) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/1.png)";
+        }
+        else if (number2 == 2) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/2.png)";
+        }
+        else if (number2 == 3) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/3.png)";
+        }
+        else if (number2 == 4) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/4.png)";
+        }
+        else if (number2 == 5) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/5.png)";
+        }
+        else if (number2 == 6) {
+        document.getElementById("dice2").style.backgroundImage = "url(res/6.png)";
+        }
+        // NUMBER 3
+        if (number3 == 0) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/6.png)";
+        number3 = 6;
+        }
+        else if (number3 == 1) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/1.png)";
+        }
+        else if (number3 == 2) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/2.png)";
+        }
+        else if (number3 == 3) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/3.png)";
+        }
+        else if (number3 == 4) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/4.png)";
+        }
+        else if (number3 == 5) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/5.png)";
+        }
+        else if (number3 == 6) {
+        document.getElementById("dice3").style.backgroundImage = "url(res/6.png)";
+        }
+         // NUMBER 4
+         if (number4 == 0) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/6.png)";
+        number4 = 6;
+        }
+        else if (number4 == 1) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/1.png)";
+        }
+        else if (number4 == 2) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/2.png)";
+        }
+        else if (number4 == 3) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/3.png)";
+        }
+        else if (number4 == 4) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/4.png)";
+        }
+        else if (number4 == 5) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/5.png)";
+        }
+        else if (number4 == 6) {
+        document.getElementById("dice4").style.backgroundImage = "url(res/6.png)";
+        }
+    }
+
+    function soma() {
+
+        if (dice_qtd == 1) {
+            result = number;
+        } else if (dice_qtd == 2) {
+            result = number + number2;   
+        } else if (dice_qtd == 3) {
+            result = number + number2 + number3;   
+        } else if (dice_qtd == 4) {
+            result = number + number2 + number3 + number4;   
+        }
+
+        document.getElementById("numero-soma").innerHTML = result;
+        document.getElementById("numero-soma").style.color = "rgba(0, 0, 0, 1)";
+    }
+
+</script>
+
+</html>
